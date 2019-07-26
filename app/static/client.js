@@ -39,6 +39,31 @@ function analyze() {
   xhr.send(fileData);
 }
 
+
+function submit(){
+  var uploadFiles = el("file-input").files
+  el("right-button").innerHTML = "Submitting...";
+  var pred = el('result-label').textContent.split('Result = ')[1];
+  var xhr = new XMLHttpRequest();
+  var loc = window.location;
+  xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/submit`,
+  true);
+
+  xhr.onerror = function() {
+    alert(xhr.responseText);
+  };
+  xhr.onload = function(e) {
+    if (this.readyState === 4) {
+    }
+    el("right-button").innerHTML = "Right";
+  };
+
+  var fileData = new FormData();
+  fileData.append(pred, uploadFiles[0]);
+  xhr.send(fileData);
+}
+
+
 function submit_value(){
   var selectValue = el("select-menu").value;
 
