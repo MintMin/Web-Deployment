@@ -91,7 +91,7 @@ async def submit(request):
     prediction = pred
     # bucket upload...
     # """Uploads a file to the bucket."""
-    export_file = 'https://www.dropbox.com/s/ecly0t3ifsbdmj7/AMLI-6588677dc859.json?raw=1'
+    export_file = 'https://www.dropbox.com/s/2h26a9u96xhcd00/engaged-cosine-245518-efa1c37d41a7.json?raw=1'
     await download_file(export_file, path / 'JSON.json')
     storage_client = storage.Client.from_service_account_json(
         'app/JSON.json')
