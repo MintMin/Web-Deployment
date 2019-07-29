@@ -21,11 +21,11 @@ body {
 }
 
 .content {
-    margin-top: 5em;
+    margin-top: 1em;
 }
 
 .analyze {
-    margin-top: 5em;
+    margin-top: 1em;
 
 }
 
@@ -37,7 +37,7 @@ body {
 .result-label {
     margin-top: 0.5em;
     padding: 10px;
-    font-size: 13px;
+    font-size: 18px;
 }
 
 
@@ -57,7 +57,6 @@ button.choose-file-button:hover {
 }
 
 button.analyze-button {
-
     width: 200px;
     height: 40px;
     border-radius: 3px;
@@ -73,69 +72,110 @@ button.analyze-button:hover {
 
 }
 
-button.right-button {
 
+.feedback-buttons{
+    display:flex;
+    justify-content: center;
+
+}
+
+button.right-button {
     width: 100px;
     height: 40px;
     border-radius: 3px;
-    background-color: #ffffff;
+    background-color: rgb(40, 187, 11);
     border: solid 1px rgb(40, 187, 11);
     font-size: 13px;
-    color: rgb(40, 187, 11);
+    color: white;
+    
+    text-align:center;
+    float:left
+
 }
 
 button.right-button:hover {
-    background-color: rgb(40, 187, 11); 
+    background-color: rgb(14, 61, 4); 
     color: white;
 
 }
 
 button.wrong-button {
     position: relative; 
-    top: 5px;>
-
+    left: 10px;
     width: 100px;
     height: 40px;
     border-radius: 3px;
-    background-color: #ffffff;
+    background-color: rgb(189, 27, 27);
     border: solid 1px rgb(189, 27, 27);
     font-size: 13px;
-    color: rgb(189, 27, 27);
+    color: white;
+
+    text-align:center;
+    float:left
+
 }
 
 button.wrong-button:hover {
-    background-color: rgb(189, 27, 27); 
+    background-color: rgb(82, 7, 7); 
     color: white;
 
 }
-
 
 button:focus {
     outline: 0;
 }
 
 
-button.submit-button1 {
-    position: relative; 
-    top: 30px;>
 
+.wrong-feedback{
+    display:flex;
+    justify-content: center;
+
+}
+.select{
+    background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+    height: 29px;
+    overflow: hidden;
+    width: 240px;
+    text-align:center;
+    float:left
+
+}
+
+.select select{
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 29px;
+    padding: 1px; /* If you add too much padding here, the options won't show in IE */
+    width: 268px;
+}
+
+
+button.submit-button1{
     width: 100px;
-    height: 40px;
+    height: 36px;
+    margin-left:8px;
     border-radius: 3px;
-    background-color: #ffffff;
-    border: solid 1px #008000;
-    font-size: 13px;
-    color: #008000;
+    background-color: rgb(40, 187, 11)f;
+    border: solid 1px rgb(40, 187, 11)f;
+    font-size: 15px;
+    color: white;
+    text-align:center;
+    float:left
+    left:20px;
+
 }
+
 button.submit-button1:hover {
-    background-color: #4CAF50; /* Green */
+    background-color:rgb(28, 121, 9); /* Green */
     color: white;
 
 }
 
-
-
 button:focus {
     outline: 0;
 }
+
+
 
