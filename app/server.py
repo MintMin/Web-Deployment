@@ -74,7 +74,6 @@ async def analyze(request):
 @app.route('/submit', methods=['POST'])
 async def submit(request):
     img_data = (await request.form())
-    print(img_data)
     for key in img_data.keys():
         print('---',key)
         pred = key
@@ -82,7 +81,6 @@ async def submit(request):
         break
     img_bytes = await (img_data[pred].read())
     img = open_image(BytesIO(img_bytes))
-    print('opened image')
     prediction = pred
     # bucket upload...
     # """Uploads a file to the bucket."""
@@ -92,7 +90,8 @@ async def submit(request):
     bucket = storage_client.get_bucket('amli_trashnet_photos')
     alias = img_data['pre']
     alias = alias + ''.join(random.choice(string.ascii_letters) for _ in range(32))
-    print(alias)
+    # GStorage  
+    print(alias, 'to', prediction)
     blobstr = 'Web_data/' + prediction + '/' + alias
     blob = bucket.blob(blobstr)
     blob.upload_from_string(img_bytes, content_type = 'image/jpeg')

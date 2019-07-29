@@ -63,7 +63,6 @@ function analyze() {
 
 
 function submit(){
-  alert('submit function');
   var myStringArray = ["Cardboard", "E-Waste", 'Glass', 'Paper', 'Metal', 'Plastic','Trash'];
   var arrayLength = myStringArray.length;
   var pred = el('result-label').textContent.split('Result = ')[1];
@@ -93,15 +92,14 @@ function submit(){
   fileData.append(pred, uploadFiles[0]);
   fileData.append('pre', correct)
   xhr.send(fileData);
-  location.href='/'
+  location.href='/';
 }
 
 function submit2(){
-  alert('submit 2')
   var correct = 'F'
   var uploadFiles = el("file-input").files;
   el("submit-button1").innerHTML = "Submitting...";
-  var pred = el('result-label').textContent.split('Result = ')[1];
+  var pred = el('select-menu').value//el('result-label').textContent.split('Result = ')[1];
   var xhr = new XMLHttpRequest();
   var loc = window.location;
   xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/submit`,
@@ -118,8 +116,7 @@ function submit2(){
 
   var fileData = new FormData();
   fileData.append(pred, uploadFiles[0]);
-  alert(pred)
   fileData.append('pre', correct)
   xhr.send(fileData);
-  location.href='/'
+  location.href='/';
 }
