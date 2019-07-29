@@ -63,18 +63,17 @@ function analyze() {
 
 
 function submit(){
-  alert('running submit function')
   var myStringArray = ["Cardboard", "E-Waste", 'Glass', 'Paper', 'Metal', 'Plastic','Trash'];
   var arrayLength = myStringArray.length;
+  var pred = el('result-label').textContent.split('Result = ')[1];
   var correct = 'T'
   for (var i = 0; i < arrayLength; i++) {
       if(el('select-menu').value === myStringArray[i]){
-        correct = 'F'
+        window.confirm("Are you sure the item is " + pred);
       }
   }
   var uploadFiles = el("file-input").files;
   el("right-button").innerHTML = "Submitting...";
-  var pred = el('result-label').textContent.split('Result = ')[1];
   var xhr = new XMLHttpRequest();
   var loc = window.location;
   xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/submit`,
@@ -93,4 +92,31 @@ function submit(){
   fileData.append(pred, uploadFiles[0]);
   fileData.append('pre', correct)
   xhr.send(fileData);
+  location.href='/'
+}
+
+function submit2(){
+  var correct = 'F'
+  var uploadFiles = el("file-input").files;
+  el("submit-button1").innerHTML = "Submitting...";
+  var pred = el('result-label').textContent.split('Result = ')[1];
+  var xhr = new XMLHttpRequest();
+  var loc = window.location;
+  xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/submit`,
+  true);
+
+  xhr.onerror = function() {
+    alert(xhr.responseText);
+  };
+  xhr.onload = function(e) {
+    if (this.readyState === 4) {
+    }
+    el("submit-button1").innerHTML = "Submit";
+  };
+
+  var fileData = new FormData();
+  fileData.append(pred, uploadFiles[0]);
+  fileData.append('pre', correct)
+  xhr.send(fileData);
+  location.href='/'
 }

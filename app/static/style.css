@@ -133,25 +133,6 @@ button.submit-button1:hover {
 
 }
 
-button.back-button {
-    position: relative; 
-    top: 60px;>
-
-    width: 200px;
-    height: 40px;
-    border-radius: 3px;
-    background-color: #ffffff;
-    border: solid 1px rgb(69, 122, 219);
-    font-size: 13px;
-    color: rgb(69, 122, 219);
-}
-
-button.back-button:hover {
-    background-color: rgb(69, 122, 219); /* Green */
-    color: white;
-
-}
-
 
 
 button:focus {
