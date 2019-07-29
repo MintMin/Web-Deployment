@@ -10,3 +10,4 @@ uvicorn==0.7.1
 python-multipart==0.0.5
 google-cloud
 google-api-python-client
+google-cloud-storage
