@@ -12,6 +12,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from google.cloud import storage
+import base64
 
 export_file_url = 'https://www.dropbox.com/s/yuwyshs6tmwp46b/trained_model_1%20%281%29.pkl?raw=1'
 export_file_name = 'export.pkl'
@@ -62,22 +63,27 @@ async def homepage(request):
 async def feedback(request):
     html_file = path / 'view' / 'feedback.html'
     return HTMLResponse(html_file.open().read())
-
+    
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)[0]
-    return JSONResponse({'result': str(prediction)})
+    return JSONResponse({'result': str(prediction)})#, 'img_byte': base64.b64decode(img_bytes) })
 
 @app.route('/submit', methods=['POST'])
 async def submit(request):
     img_data = (await request.form())
+    print(img_data)
     for key in img_data.keys():
+        print('---',key)
         pred = key
+        print('here:', pred)
+        break
     img_bytes = await (img_data[pred].read())
     img = open_image(BytesIO(img_bytes))
+    print('opened image')
     prediction = pred
     # bucket upload...
     # """Uploads a file to the bucket."""
@@ -85,7 +91,9 @@ async def submit(request):
         'app/AMLI-6588677dc859.json')
     buckets = list(storage_client.list_buckets())
     bucket = storage_client.get_bucket('amli_trashnet_photos')
-    alias = ''.join(random.choice(string.ascii_letters) for _ in range(32))
+    alias = img_data['pre']
+    alias = alias + ''.join(random.choice(string.ascii_letters) for _ in range(32))
+    print(alias)
     blobstr = 'Web_data/' + prediction + '/' + alias
     blob = bucket.blob(blobstr)
     blob.upload_from_string(img_bytes, content_type = 'image/jpeg')
@@ -94,3 +102,50 @@ async def submit(request):
 if __name__ == '__main__':
     if 'serve' in sys.argv:
         uvicorn.run(app=app, host='0.0.0.0', port=5000, log_level="info")
+
+@app.route('/sub2', methods=['POST'])
+async def sub2(request):
+    img_data = (await request.form())
+    print(img_data)
+    print('keys:', img_data.keys())
+    for key in img_data.keys():
+        print('---',key)
+        pred = key
+        print('here:', pred)
+        break
+    img_bytes = await (img_data[pred].read())
+    img = open_image(BytesIO(img_bytes))
+    print('opened image')
+    prediction = pred
+    # bucket upload...
+    # """Uploads a file to the bucket."""
+    storage_client = storage.Client.from_service_account_json(
+        'app/AMLI-6588677dc859.json')
+    buckets = list(storage_client.list_buckets())
+    bucket = storage_client.get_bucket('amli_trashnet_photos')
+    #alias = img_data['pre']
+    alias = alias + ''.join(random.choice(string.ascii_letters) for _ in range(32))
+    print(alias)
+    blobstr = 'Web_data/' + prediction + '/' + alias
+    blob = bucket.blob(blobstr)
+    blob.upload_from_string(img_bytes, content_type = 'image/jpeg')
+    return JSONResponse({'result': str(prediction)})
+    # print('Submit 2')
+    # img_data = (await request.form())
+    # for key in img_data.keys():
+    #     pred = key
+    # img_bytes = await (img_data[pred].read())
+    # img = open_image(BytesIO(img_bytes))
+    # print('opened image')
+    # prediction = pred
+    # # bucket upload...
+    # # """Uploads a file to the bucket."""
+    # storage_client = storage.Client.from_service_account_json(
+    #     'app/AMLI-6588677dc859.json')
+    # buckets = list(storage_client.list_buckets())
+    # bucket = storage_client.get_bucket('amli_trashnet_photos')
+    # alias = ''.join(random.choice(string.ascii_letters) for _ in range(32))
+    # blobstr = 'Web_data/' + prediction + '/' + alias
+    # blob = bucket.blob(blobstr)
+    # blob.upload_from_string(img_bytes, content_type = 'image/jpeg')
+    # return JSONResponse({'result': str(prediction)})

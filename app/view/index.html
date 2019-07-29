@@ -51,23 +51,89 @@
       </div>
       
 
-      <div class='right'>
+      <div class='right' id='right'>
           <button id='right-button' class='right-button' onclick= "submit()" type='button'>
             Got it right!
           </button>
       </div>
 
       
-      <div class='wrong'>
-        <button id='wrong-button' class='wrong-button' onclick= "location.href='/feedback'" type='button'>
+      <div class='wrong' id='wrong'>
+        <button id='wrong-button' class='wrong-button' onclick= "myFunction()" type='button'>
           Wrong answer?
         </button>
-      </div>
+       </div>
+       <script>
+      var a = document.getElementById('wrong').style.display = 'none'
+      a.style.display = 'none'
+       </script>
+       <script>
+      var ele = document.getElementById('right').style.display = 'none'
+      ele.style.display = 'none'
+       //hide everything
+       function myFunction(){
+         var x = document.getElementById('center1')
+         if(x.style.display == 'none'){
+          x.style.display = "block";
+         }
+         else{
+          x.style.display = "none";
+         }
+       }
+
+       </script>
+</body>
 
 
-      
+<body>
+    <div>
+        <div class='center1' id='center1'>
+            <p>
+            Choose the right <strong>trash categories</strong> to help us improve! 
+            </p>
+    
+            <div class='content'>
+    
+                <div class='select'>
+                    <form id="form" method="post" action="submit" >
+                        <select id="select-menu">
+                            <option> --Please choose-- </option>
+                            <option value="Cardboard">Cardboard</option>
+                            <option value="E-Waste">E-waste</option>
+                            <option value="Glass">Glass</option>
+                            <option value="Metal">Metal</option>
+                            <option value="Paper">Paper</option>
+                            <option value="Plastic">Plastic</option>
+                            <option value="Trash">Trash</option>
+                        </select>
+    
+                        <button type="submit" id='submit-button1' class='submit-button1'  
+                        value="SUBMIT" onclick= 'submit_wrong()'  >
+                        Submit</button>
+    
+                    </form>
+                </div>
+                        
+        
+    
+                <div class='back'>
+                    <button id='back-button' class='back-button' onclick= "location.href='/'" 
+                    type='button'>
+                        Try another TRASH &raquo;
+                    </button>
+                </div>
+            </div>
+                
+        </div>
+    
+    
+    
     </div>
+    <script>
+        var ele = document.getElementById("center1")//.style.display = "none";
+        ele.style.display = 'none';
+        </script>
+    </body>
   </div>
 </div>
-</body>
 </html>
