@@ -23,7 +23,6 @@ app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount('/static', StaticFiles(directory='app/static'))
 
-
 async def download_file(url, dest):
     if dest.exists(): return
     async with aiohttp.ClientSession() as session:
@@ -84,8 +83,10 @@ async def submit(request):
     prediction = pred
     # bucket upload...
     # """Uploads a file to the bucket."""
+    export_file = 'https://www.dropbox.com/s/ecly0t3ifsbdmj7/AMLI-6588677dc859.json?raw=1'
+    await download_file(export_file, path / 'JSON.json')
     storage_client = storage.Client.from_service_account_json(
-        'app/AMLI-6588677dc859.json')
+        'app/JSON.json')
     buckets = list(storage_client.list_buckets())
     bucket = storage_client.get_bucket('amli_trashnet_photos')
     alias = img_data['pre']
