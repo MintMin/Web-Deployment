@@ -20,10 +20,7 @@ function show_button(input){
          if(x.style.display == 'none'){
           x.style.display = "block";
          }
-         else{
-          x.style.display = "none";
-         }
-}
+        }
 
 function analyze() {
   var uploadFiles = el("file-input").files;
