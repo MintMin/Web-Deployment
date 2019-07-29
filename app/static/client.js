@@ -63,10 +63,11 @@ function analyze() {
 
 
 function submit(){
+  alert('submit function');
   var myStringArray = ["Cardboard", "E-Waste", 'Glass', 'Paper', 'Metal', 'Plastic','Trash'];
   var arrayLength = myStringArray.length;
   var pred = el('result-label').textContent.split('Result = ')[1];
-  var correct = 'T'
+  var correct = 'T';
   for (var i = 0; i < arrayLength; i++) {
       if(el('select-menu').value === myStringArray[i]){
         window.confirm("Are you sure the item is " + pred);
@@ -96,6 +97,7 @@ function submit(){
 }
 
 function submit2(){
+  alert('submit 2')
   var correct = 'F'
   var uploadFiles = el("file-input").files;
   el("submit-button1").innerHTML = "Submitting...";
@@ -116,6 +118,7 @@ function submit2(){
 
   var fileData = new FormData();
   fileData.append(pred, uploadFiles[0]);
+  alert(pred)
   fileData.append('pre', correct)
   xhr.send(fileData);
   location.href='/'
