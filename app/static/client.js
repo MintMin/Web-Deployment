@@ -1,3 +1,4 @@
+// if updates aren't showing locally. run jobs and kill%1
 var el = x => document.getElementById(x);
 
 function showPicker() {
@@ -72,34 +73,34 @@ function submit(){
         window.confirm("Are you sure the item is " + pred);
       }
   }
-  var uploadFiles = el("file-input").files;
-  el("right-button").innerHTML = "Submitting...";
   var xhr = new XMLHttpRequest();
   var loc = window.location;
   xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/submit`,
-  true);
+    true);
 
-  xhr.onerror = function() {
-    alert(xhr.responseText);
-  };
-  xhr.onload = function(e) {
-    if (this.readyState === 4) {
-    }
-    el("right-button").innerHTML = "Right";
-  };
-
+    xhr.onerror = function() {
+      alert(xhr.responseText);
+    };
+    xhr.onload = function(e) {
+      if (this.readyState === 4) {
+      }
+      el("right-button").innerHTML = "Right";
+      location.href='/';
+    };
+  var uploadFiles = el("file-input").files;
+  el("right-button").innerHTML = "Submitting...";
   var fileData = new FormData();
   fileData.append(pred, uploadFiles[0]);
   fileData.append('pre', correct)
   xhr.send(fileData);
-  location.href='/';
 }
+
 
 function submit2(){
   var correct = 'F'
   var uploadFiles = el("file-input").files;
   el("submit-button1").innerHTML = "Submitting...";
-  var pred = el('select-menu').value//el('result-label').textContent.split('Result = ')[1];
+  var pred = el('select-menu').value
   var xhr = new XMLHttpRequest();
   var loc = window.location;
   xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/submit`,
@@ -112,11 +113,11 @@ function submit2(){
     if (this.readyState === 4) {
     }
     el("submit-button1").innerHTML = "Submit";
+    location.href='/';
   };
 
   var fileData = new FormData();
   fileData.append(pred, uploadFiles[0]);
   fileData.append('pre', correct)
   xhr.send(fileData);
-  location.href='/';
 }

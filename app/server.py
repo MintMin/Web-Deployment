@@ -12,6 +12,8 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from google.cloud import storage
+from PIL import Image
+
 
 export_file_url = 'https://www.dropbox.com/s/yuwyshs6tmwp46b/trained_model_1%20%281%29.pkl?raw=1'
 export_file_name = 'export.pkl'
@@ -68,7 +70,7 @@ async def analyze(request):
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)[0]
-    return JSONResponse({'result': str(prediction)})#, 'img_byte': base64.b64decode(img_bytes) })
+    return JSONResponse({'result': str(prediction)})
 
 @app.route('/submit', methods=['POST'])
 async def submit(request):
