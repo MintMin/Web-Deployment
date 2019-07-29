@@ -7,12 +7,14 @@ from fastai.vision import *
 import random
 import string
 from io import BytesIO
+from io import StringIO
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from google.cloud import storage
 from PIL import Image
+import pandas as pd
 
 
 export_file_url = 'https://www.dropbox.com/s/yuwyshs6tmwp46b/trained_model_1%20%281%29.pkl?raw=1'
@@ -76,9 +78,13 @@ async def analyze(request):
 async def submit(request):
     img_data = (await request.form())
     for key in img_data.keys():
-        print('---',key)
         pred = key
-        print('here:', pred)
+        start = 'F'
+        d = 0
+        print(pred, '==', img_data['pre'])
+        if(pred == img_data['pre']):
+            start = 'T'
+            d = 1
         break
     img_bytes = await (img_data[pred].read())
     img = open_image(BytesIO(img_bytes))
@@ -91,13 +97,30 @@ async def submit(request):
         'app/JSON.json')
     buckets = list(storage_client.list_buckets())
     bucket = storage_client.get_bucket('amli_trashnet_photos')
-    alias = img_data['pre']
+    alias = start
     alias = alias + ''.join(random.choice(string.ascii_letters) for _ in range(32))
     # GStorage  
     print(alias, 'to', prediction)
     blobstr = 'Web_data/' + prediction + '/' + alias
+    csvobject = 'Web_data/Web_App_DB.csv'
+    csvblob = bucket.blob(csvobject)
+    # df = pd.read_csv('gs://Web_data/Web_App_DB.csv',encoding='utf-8')
+    a = csvblob.download_as_string()
+    df = pd.read_csv(BytesIO(a))
+    # blob.upload_from_string(img_bytes, content_type = 'image/jpeg')
+    # df.add
     blob = bucket.blob(blobstr)
     blob.upload_from_string(img_bytes, content_type = 'image/jpeg')
+    #make new row for df
+    link = 'https://storage.cloud.google.com/amli_trashnet_photos/Web_data/'+ prediction + '/' + alias + '?folder=true&organizationId=765589025310'
+    row = [link, img_data['pre'], prediction, str(d)]
+    df2 = pd.DataFrame([row], columns=df.columns)
+    df.reset_index(drop=True, inplace=True)
+    df2.reset_index(drop=True, inplace=True)
+    df = df.append(df2)
+    newcsv = df.to_csv(index = False)
+    csvblob.upload_from_string(newcsv)
+    
     return JSONResponse({'result': str(prediction)})
 
 if __name__ == '__main__':

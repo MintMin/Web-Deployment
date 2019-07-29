@@ -67,7 +67,6 @@ function submit(){
   var myStringArray = ["Cardboard", "E-Waste", 'Glass', 'Paper', 'Metal', 'Plastic','Trash'];
   var arrayLength = myStringArray.length;
   var pred = el('result-label').textContent.split('Result = ')[1];
-  var correct = 'T';
   for (var i = 0; i < arrayLength; i++) {
       if(el('select-menu').value === myStringArray[i]){
         window.confirm("Are you sure the item is " + pred);
@@ -91,13 +90,13 @@ function submit(){
   el("right-button").innerHTML = "Submitting...";
   var fileData = new FormData();
   fileData.append(pred, uploadFiles[0]);
-  fileData.append('pre', correct)
+  fileData.append('pre', pred)
   xhr.send(fileData);
 }
 
 
 function submit2(){
-  var correct = 'F'
+  var prediction = el('result-label').textContent.split('Result = ')[1];
   var uploadFiles = el("file-input").files;
   el("submit-button1").innerHTML = "Submitting...";
   var pred = el('select-menu').value
@@ -118,6 +117,6 @@ function submit2(){
 
   var fileData = new FormData();
   fileData.append(pred, uploadFiles[0]);
-  fileData.append('pre', correct)
+  fileData.append('pre', prediction)
   xhr.send(fileData);
 }
