@@ -63,6 +63,15 @@ function analyze() {
 
 
 function submit(){
+  alert('running submit function')
+  var myStringArray = ["Cardboard", "E-Waste", 'Glass', 'Paper', 'Metal', 'Plastic','Trash'];
+  var arrayLength = myStringArray.length;
+  var correct = 'T'
+  for (var i = 0; i < arrayLength; i++) {
+      if(el('select-menu').value === myStringArray[i]){
+        correct = 'F'
+      }
+  }
   var uploadFiles = el("file-input").files;
   el("right-button").innerHTML = "Submitting...";
   var pred = el('result-label').textContent.split('Result = ')[1];
@@ -82,30 +91,6 @@ function submit(){
 
   var fileData = new FormData();
   fileData.append(pred, uploadFiles[0]);
-  fileData.append('pre', 'T')
+  fileData.append('pre', correct)
   xhr.send(fileData);
-}
-
-
-function submit_wrong(){
-  var newpred = el("select-menu").value;
-  var uploadFiles = el("file-input").files
-  el("submit-button").innerHTML = "Submitting...";
-  var xhr = new XMLHttpRequest();
-  var loc = window.location;
-  xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/submit`,true);
-  xhr.onerror = function() {
-    alert(xhr.responseText);
-  };
-  xhr.onload = function(e) {
-    if (this.readyState === 4) {
-    }
-    el("submit-button").innerHTML = "Submit";
-  };
-
-  var fileData = new FormData();
-  fileData.append(newpred, uploadFiles[0]);
-  fileData.append('pre','F');
-  xhr.send(fileData);
-  
 }
