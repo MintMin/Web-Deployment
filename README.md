@@ -10,6 +10,8 @@ You could use [Render's fast.ai forum thread](https://forums.fast.ai/t/deploymen
 
 # Trash classification website
 
+Our recycling web app is up at: https://recycling-test.onrender.com/
+
 We implement our trash classification and modify the html, css, havascript and servey.py files to have more suitble functionalities and layout for out project.  
 
 The codes for trash classification model and detailed comments could be found at https://github.com/ndecavel/Recycling.
