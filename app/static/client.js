@@ -45,9 +45,13 @@ function analyze() {
       el("result-label").innerHTML = `Result = ${response["result"]}`;
       show_button('right');
       show_button('wrong');
+      var temp = response['result'];
+      if(temp.includes('Recyclable')){
+        temp = (temp.split('(')[1]).split(')')[0];
+      }
       var selectobject = document.getElementById('select-menu')
       for (var i=0; i<selectobject.length; i++){
-        if (selectobject.options[i].value ==  response['result'])
+        if (selectobject.options[i].value ==  temp)
            selectobject.remove(i);
         }
     }
@@ -63,7 +67,13 @@ function analyze() {
 function submit(){
   var myStringArray = ["Cardboard", "E-Waste", 'Glass', 'Paper', 'Metal', 'Plastic','Trash'];
   var arrayLength = myStringArray.length;
-  var pred = el('result-label').textContent.split('Result = ')[1];
+  var pred = el('result-label').textContent
+  if(pred.includes('Recyclable')){
+    pred = (pred.split('(')[1]).split(')')[0];
+  }
+  else{
+    pred = pred.split('Result =')[1];
+  }
   for (var i = 0; i < arrayLength; i++) {
       if(el('select-menu').value === myStringArray[i]){
         window.confirm("Are you sure the item is " + pred);
@@ -93,7 +103,13 @@ function submit(){
 
 
 function submit2(){
-  var prediction = el('result-label').textContent.split('Result = ')[1];
+  var prediction = el('result-label').textContent
+  if(prediction.includes('Recyclable')){
+    prediction = (prediction.split('(')[1]).split(')')[0];
+  }
+  else{
+    prediction = prediction.split('Result =')[1];
+  }  
   var uploadFiles = el("file-input").files;
   el("submit-button1").innerHTML = "Submitting...";
   var pred = el('select-menu').value
