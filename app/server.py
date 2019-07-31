@@ -16,16 +16,18 @@ from google.cloud import storage
 from PIL import Image
 import pandas as pd
 
-
+# implement our model here 
 export_file_url = 'https://www.dropbox.com/s/yuwyshs6tmwp46b/trained_model_1%20%281%29.pkl?raw=1'
 export_file_name = 'export.pkl'
 
+#list trash categories here 
 classes = ['Cardboard', 'E-Waste', 'Glass', 'Metal', 'Paper', 'Plastic', 'Trash']
 path = Path(__file__).parent
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount('/static', StaticFiles(directory='app/static'))
+
 
 async def download_file(url, dest):
     if dest.exists(): return
@@ -55,17 +57,14 @@ tasks = [asyncio.ensure_future(setup_learner())]
 learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
 loop.close()
 
-
+# define the root path
 @app.route('/')
 async def homepage(request):
     html_file = path / 'view' / 'index.html'
     return HTMLResponse(html_file.open().read())
 
-@app.route('/feedback')
-async def feedback(request):
-    html_file = path / 'view' / 'feedback.html'
-    return HTMLResponse(html_file.open().read())
-    
+
+# define the analyze button action    
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
     img_data = await request.form()
@@ -77,6 +76,8 @@ async def analyze(request):
         prediction = 'Recyclable (' + prediction + ')'
     return JSONResponse({'result': prediction})
 
+# define the submit action    
+# specify the saving location of submitted images
 @app.route('/submit', methods=['POST'])
 async def submit(request):
     img_data = (await request.form())
