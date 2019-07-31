@@ -104,14 +104,14 @@ async def submit(request):
     alias = alias + ''.join(random.choice(string.ascii_letters) for _ in range(32))
     # GStorage  
     print(alias, 'to', prediction)
+    if(prediction[0] == ' '):
+        prediction = prediction[1:]
     blobstr = 'Web_data/' + prediction + '/' + alias
     csvobject = 'Web_data/Web_App_DB.csv'
     csvblob = bucket.blob(csvobject)
     # df = pd.read_csv('gs://Web_data/Web_App_DB.csv',encoding='utf-8')
     a = csvblob.download_as_string()
     df = pd.read_csv(BytesIO(a))
-    # blob.upload_from_string(img_bytes, content_type = 'image/jpeg')
-    # df.add
     blob = bucket.blob(blobstr)
     blob.upload_from_string(img_bytes, content_type = 'image/jpeg')
     #make new row for df
