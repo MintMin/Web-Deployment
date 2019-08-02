@@ -132,19 +132,20 @@ button:focus {
     justify-content: center;
 
 }
+
 .select{
-    background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
-    height: 29px;
+    background: rgba(201, 211, 204, 0.671);
+    height: 30px;
     overflow: hidden;
     width: 240px;
     text-align:center;
     float:left
-
 }
 
 .select select{
     background: transparent;
-    border: none;
+    border: red;
+    border-radius: 3px;
     font-size: 14px;
     height: 29px;
     padding: 1px; /* If you add too much padding here, the options won't show in IE */
@@ -154,13 +155,13 @@ button:focus {
 
 button.submit-button1{
     width: 100px;
-    height: 36px;
+    height: 30px;
     margin-left:8px;
-    border-radius: 3px;
-    background-color: rgb(40, 187, 11)f;
-    border: solid 1px rgb(40, 187, 11)f;
+    /* border-radius: 3px; */
+    /* background-color: grey(40, 187, 11); */
+    border: solid 2px  rgba(172, 184, 176, 0.897);
     font-size: 15px;
-    color: white;
+    color: rgb(68, 67, 67);
     text-align:center;
     float:left
     left:20px;
@@ -168,7 +169,7 @@ button.submit-button1{
 }
 
 button.submit-button1:hover {
-    background-color:rgb(28, 121, 9); /* Green */
+    background-color:rgb(37, 143, 16); /* Green */
     color: white;
 
 }
