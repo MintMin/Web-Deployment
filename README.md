@@ -12,6 +12,6 @@ You could use [Render's fast.ai forum thread](https://forums.fast.ai/t/deploymen
 
 Our recycling web app is up at: https://recycling-test.onrender.com/
 
-We implement our trash classification and modify the html, css, havascript and servey.py files (in app folder)to have more suitble functionalities and layout for out project.  
+We implement our trash classification and modify the html, css, javascript and servey.py files (in app folder)to have more suitble functionalities and layout for out project.  
 
 The codes for trash classification model and detailed comments could be found at https://github.com/ndecavel/Recycling.
